@@ -1,12 +1,12 @@
 package Library.Model.IO.File;
 
-import Library.Model.Book;
+import Library.Model.Model.Book;
 import Library.Model.Exception.DataExportException;
 import Library.Model.Exception.DataImportException;
 import Library.Model.Exception.InvalidDataException;
-import Library.Model.Library;
-import Library.Model.Magazine;
-import Library.Model.Publication;
+import Library.Model.Model.Library;
+import Library.Model.Model.Magazine;
+import Library.Model.Model.Publication;
 
 import java.io.*;
 import java.util.Scanner;

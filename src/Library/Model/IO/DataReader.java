@@ -1,7 +1,7 @@
 package Library.Model.IO;
 
-import Library.Model.Book;
-import Library.Model.Magazine;
+import Library.Model.Model.Book;
+import Library.Model.Model.Magazine;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

@@ -1,8 +1,8 @@
 package Library.Model.IO;
 
-import Library.Model.Book;
-import Library.Model.Magazine;
-import Library.Model.Publication;
+import Library.Model.Model.Book;
+import Library.Model.Model.Magazine;
+import Library.Model.Model.Publication;
 
 public class ConsolePrinter {
     public void printBooks(Publication[] publications){

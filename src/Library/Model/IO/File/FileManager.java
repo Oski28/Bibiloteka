@@ -1,6 +1,6 @@
 package Library.Model.IO.File;
 
-import Library.Model.Library;
+import Library.Model.Model.Library;
 
 public interface FileManager {
     Library importData();

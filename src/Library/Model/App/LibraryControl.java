@@ -6,15 +6,16 @@ import Library.Model.Exception.InvalidDataException;
 import Library.Model.Exception.NoSuchOptionException;
 import Library.Model.IO.ConsolePrinter;
 import Library.Model.IO.DataReader;
-import Library.Model.Book;
+import Library.Model.Model.Book;
 import Library.Model.IO.File.FileManager;
 import Library.Model.IO.File.FileManagerBuilder;
-import Library.Model.Library;
-import Library.Model.Magazine;
-import Library.Model.Publication;
+import Library.Model.Model.Library;
+import Library.Model.Model.Magazine;
+import Library.Model.Model.Publication;
+import Library.Model.Model.comparator.AlphabeticalTitleComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 
 class LibraryControl {
     private ConsolePrinter printer = new ConsolePrinter();
@@ -53,6 +54,12 @@ class LibraryControl {
                     break;
                 case PRINT_MAGAZINES:
                     printMagazines();
+                    break;
+                case DELETE_BOOK:
+                    deleteBook();
+                    break;
+                case DELETE_MAGAZINE:
+                    deleteMagazine();
                     break;
                 case EXIT:
                     exit();
@@ -99,7 +106,7 @@ class LibraryControl {
     }
 
     private void printBooks() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printBooks(publications);
     }
 
@@ -115,8 +122,14 @@ class LibraryControl {
     }
 
     private void printMagazines() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printMagazines(publications);
+    }
+
+    private Publication[] getSortedPublications(){
+        Publication[] publications=library.getPublications();
+        Arrays.sort(publications,new AlphabeticalTitleComparator());
+        return publications;
     }
 
     private void exit() {
@@ -130,12 +143,38 @@ class LibraryControl {
         printer.printLine("Koniec programu, papa!");
     }
 
+    private void deleteBook(){
+        try {
+            Book book= dataReader.readAndCreateBook();
+            if (library.removePublication(book))
+                printer.printLine("Usunięto książkę.");
+            else
+                printer.printLine("Brak wskazanej książki");
+        } catch (InputMismatchException e){
+            printer.printLine("Nie udało się usunąć ksiażki. Niepoprawne dane.");
+        }
+    }
+
+    private void deleteMagazine(){
+        try {
+            Magazine magazine=dataReader.readAndCreateMagazine();
+            if (library.removePublication(magazine))
+                printer.printLine("Usunięto magazyn.");
+            else
+                printer.printLine("Brak wskazanego magazynu.");
+        } catch (InputMismatchException e){
+            printer.printLine("Nie udało się usunąć książki. Niepoprawne dane.");
+        }
+    }
+
     private enum Option {
         EXIT(0, "Wyjście z programu"),
         ADD_BOOK(1, "Dodanie książki"),
         ADD_MAGAZINE(2,"Dodanie magazynu/gazety"),
         PRINT_BOOKS(3, "Wyświetlenie dostępnych książek"),
-        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet");
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów/gazet"),
+        DELETE_BOOK(5,"Usuń książkę"),
+        DELETE_MAGAZINE(6,"Usuń magazyn");
 
         private int value;
         private String description;

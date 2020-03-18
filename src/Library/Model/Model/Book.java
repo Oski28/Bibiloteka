@@ -1,8 +1,6 @@
-package Library.Model;
+package Library.Model.Model;
 
 import java.util.Objects;
-
-import static java.lang.Float.TYPE;
 
 public class Book extends Publication {
     private String author;

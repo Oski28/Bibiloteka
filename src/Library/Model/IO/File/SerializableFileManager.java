@@ -2,7 +2,7 @@ package Library.Model.IO.File;
 
 import Library.Model.Exception.DataExportException;
 import Library.Model.Exception.DataImportException;
-import Library.Model.Library;
+import Library.Model.Model.Library;
 
 import java.io.*;
 
@@ -13,7 +13,7 @@ public class SerializableFileManager implements FileManager {
     public void exportData(Library library) {
         try (
                 var fos = new FileOutputStream(FILE_NAME);
-                var oos = new ObjectOutputStream(fos);
+                var oos = new ObjectOutputStream(fos)
         ) {
             oos.writeObject(library);
         } catch (FileNotFoundException e) {
@@ -27,7 +27,7 @@ public class SerializableFileManager implements FileManager {
     public Library importData() {
         try (
                 var fis = new FileInputStream(FILE_NAME);
-                var ois = new ObjectInputStream(fis);
+                var ois = new ObjectInputStream(fis)
         ) {
             return (Library) ois.readObject();
         } catch (FileNotFoundException e) {
