@@ -1,6 +1,7 @@
 package Library.Model.IO;
 
 import Library.Model.Model.Book;
+import Library.Model.Model.LibraryUser;
 import Library.Model.Model.Magazine;
 
 import java.util.InputMismatchException;
@@ -64,5 +65,15 @@ public class DataReader {
         int day = getInt();
 
         return new Magazine(title, publisher, language, year, month, day);
+    }
+
+    public LibraryUser createLibraryUser(){
+        printer.printLine("Podaj imię: ");
+        String firstName=scanner.nextLine();
+        printer.printLine("Podaj nazwisko: ");
+        String secondName=scanner.nextLine();
+        printer.printLine("Podaj pesel: ");
+        String pesel=scanner.nextLine();
+        return new LibraryUser(firstName,secondName,pesel);
     }
 }
