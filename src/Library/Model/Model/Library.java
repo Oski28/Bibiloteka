@@ -4,9 +4,7 @@ import Library.Model.Exception.PublicationAlreadyExistsException;
 import Library.Model.Exception.UserAlreadyExistsException;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Library implements Serializable {
     private Map<String,Publication> publications=new HashMap<>();
@@ -43,5 +41,17 @@ public class Library implements Serializable {
         } else {
             return  false;
         }
+    }
+
+    public Collection<Publication> getSortedPublications(Comparator<Publication> comparator){
+        ArrayList<Publication> list=new ArrayList<>(this.publications.values());
+        list.sort(comparator);
+        return list;
+    }
+
+    public Collection<LibraryUser> getSortedUsers(Comparator<LibraryUser> comparator){
+        ArrayList<LibraryUser> list=new ArrayList<>(this.users.values());
+        list.sort(comparator);
+        return list;
     }
 }
